@@ -36,12 +36,12 @@ That will leave a program called "leah".
 $ ls -l leah
 -rwxr-xr-x 1 erniep users 1159560 Oct 23 16:38 leah
 ```
-Give it one argument. The path to some image. It should auto-detech the image format.
+Give it one argument, the path to some image. It should auto-detect the image format and will display it.
 ```
 $ ./leah
 usage: ./leah /path/to/image
 
 $ ./leah ../../images/lena.png
 ```
-
 ![image](https://user-images.githubusercontent.com/44415985/197419762-cf2986d6-6e30-460a-b73a-4712312ffda0.png)
+
