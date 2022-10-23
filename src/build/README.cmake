@@ -1,4 +1,4 @@
-Notes for building QImageViewer with cmake.
+Notes for building QImageViewer and the "lena" test program with cmake.
 
 % cd QImageViewer/src/build
 % cmake -DCMAKE_BUILD_TYPE=Debug ..     # Debug release -g.

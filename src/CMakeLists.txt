@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-project(leah VERSION 1.13.0 LANGUAGES CXX)
+project(lena VERSION 1.13.0 LANGUAGES CXX)
 
-set(PROJECT_NAME leah)
+set(PROJECT_NAME lena)
 
 # Find includes in the build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -23,7 +23,7 @@ set(HEADER_FILES
     )
 
 set(SOURCE_FILES
-    leah.cpp
+    lena.cpp
     QImageViewer.cpp
     )
 

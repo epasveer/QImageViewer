@@ -17,31 +17,31 @@ The widget supports:
 * A slot to reset zoom and scale.
 * A slot to invoke print dialog.
 
-To build the test program "leah",  run these steps:
+To build the test program "lena",  run these steps:
 ```
 % cd QImageViewer/src/build
 % cmake ..
 % make
-[ 20%] Automatic MOC and UIC for target leah
-[ 20%] Built target leah_autogen
-[ 40%] Building CXX object CMakeFiles/leah.dir/leah_autogen/mocs_compilation.cpp.o
-[ 60%] Building CXX object CMakeFiles/leah.dir/leah.cpp.o
-[ 80%] Building CXX object CMakeFiles/leah.dir/QImageViewer.cpp.o
-[100%] Linking CXX executable leah
-[100%] Built target leah
+[ 20%] Automatic MOC and UIC for target lena
+[ 20%] Built target lena_autogen
+[ 40%] Building CXX object CMakeFiles/lena.dir/lena_autogen/mocs_compilation.cpp.o
+[ 60%] Building CXX object CMakeFiles/lena.dir/lena.cpp.o
+[ 80%] Building CXX object CMakeFiles/lena.dir/QImageViewer.cpp.o
+[100%] Linking CXX executable lena
+[100%] Built target lena
 
 ```
-That will leave a program called "leah".
+That will leave a program called "lena".
 ```
-$ ls -l leah
--rwxr-xr-x 1 erniep users 1159560 Oct 23 16:38 leah
+$ ls -l lena
+-rwxr-xr-x 1 erniep users 1159560 Oct 23 16:38 lena
 ```
 Give it one argument, the path to some image. It should auto-detect the image format and will display it.
 ```
-$ ./leah
-usage: ./leah /path/to/image
+$ ./lena
+usage: ./lena /path/to/image
 
-$ ./leah ../../images/lena.png
+$ ./lena ../../images/lena.png
 ```
 ![image](https://user-images.githubusercontent.com/44415985/197419762-cf2986d6-6e30-460a-b73a-4712312ffda0.png)
 
