@@ -20,6 +20,7 @@ int main (int argc, char* argv[]) {
     QImageViewer leah;
 
     leah.loadFile(argv[1]);
+    leah.scaleImage(1.0);
 
     leah.show();
 

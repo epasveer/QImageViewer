@@ -1,10 +1,15 @@
 #include "QImageViewer.h"
 #include <QtWidgets/QScrollBar>
 #include <QtGui/QImageReader>
+#include <QtCore/QDebug>
 
 QImageViewer::QImageViewer (QWidget* parent) : QLabel(parent) {
 
     _scaleFactor = 1.0;
+
+    setBackgroundRole(QPalette::Base);
+    setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    setScaledContents(true);
 
     _scrollArea = new QScrollArea;
     _scrollArea->setBackgroundRole(QPalette::Dark);
@@ -22,7 +27,7 @@ bool QImageViewer::loadFile (const QString& file) {
 
     reader.setAutoTransform(true);
 
-    const QImage newImage = reader.read();
+    QImage newImage = reader.read();
 
     if (newImage.isNull()) {
         return false;
@@ -37,6 +42,8 @@ void QImageViewer::setImage (const QImage&  newImage) {
 
     _image = newImage;
 
+    //qDebug() << _image;
+
     setPixmap(QPixmap::fromImage(_image));
 
     _scaleFactor = 1.0;
@@ -44,6 +51,11 @@ void QImageViewer::setImage (const QImage&  newImage) {
     _scrollArea->setVisible(true);
 
     adjustSize(); //
+}
+
+const QImage& QImageViewer::image () const {
+
+    return _image;
 }
 
 void QImageViewer::scaleImage (double factor) {

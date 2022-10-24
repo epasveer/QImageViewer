@@ -14,14 +14,15 @@ class QImageViewer : public QLabel {
        ~QImageViewer ();
 
         bool                    loadFile                (const QString& file);
+        void                    setImage                (const QImage&  newImage);
+        const QImage&           image                   () const;
 
-    public  slots:
+    public slots:
+        void                    scaleImage              (double factor);
+
     private slots:
 
     private:
-
-        void                    setImage                (const QImage&  newImage);
-        void                    scaleImage              (double factor);
         void                    adjustScrollBar         (QScrollBar* scrollBar, double factor);
 
         QImage                  _image;
