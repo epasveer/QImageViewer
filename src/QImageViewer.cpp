@@ -77,7 +77,7 @@ void QImageViewer::zoom (double factor) {
 
     _zoomFactor = factor;
 
-    resize(_zoomFactor * pixmap(Qt::ReturnByValueConstant()).size());
+    resize(_zoomFactor * pixmap(Qt::ReturnByValue).size());
 
     adjustScrollBar(_scrollArea->horizontalScrollBar(), factor);
     adjustScrollBar(_scrollArea->verticalScrollBar(),   factor);
@@ -100,18 +100,18 @@ void QImageViewer::zoomReset () {
 
 void QImageViewer::print () {
 
-    Q_ASSERT(pixmap(Qt::ReturnByValueConstant()).isNull() == false);
+    Q_ASSERT(pixmap(Qt::ReturnByValue).isNull() == false);
 
     QPrintDialog dialog(&_printer, this);
 
     if (dialog.exec()) {
         QPainter painter(&_printer);
         QRect rect = painter.viewport();
-        QSize size = pixmap(Qt::ReturnByValueConstant()).size();
+        QSize size = pixmap(Qt::ReturnByValue).size();
         size.scale(rect.size(), Qt::KeepAspectRatio);
         painter.setViewport(rect.x(), rect.y(), size.width(), size.height());
-        painter.setWindow(pixmap(Qt::ReturnByValueConstant()).rect());
-        painter.drawPixmap(0, 0, pixmap(Qt::ReturnByValueConstant()));
+        painter.setWindow(pixmap(Qt::ReturnByValue).rect());
+        painter.drawPixmap(0, 0, pixmap(Qt::ReturnByValue));
     }
 }
 
