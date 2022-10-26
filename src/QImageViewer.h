@@ -4,6 +4,9 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QWidget>
 #include <QtGui/QImage>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QWheelEvent>
+#include <QtPrintSupport/QPrinter>
 
 class QImageViewer : public QLabel {
 
@@ -14,20 +17,29 @@ class QImageViewer : public QLabel {
        ~QImageViewer ();
 
         bool                    loadFile                (const QString& file);
-        void                    setImage                (const QImage&  newImage);
+        void                    setImage                (const QImage& newImage);
         const QImage&           image                   () const;
 
-    public slots:
-        void                    scaleImage              (double factor);
+        double                  zoomFactor              () const;
 
-    private slots:
+    public slots:
+        void                    zoom                    (double factor);
+        void                    zoomIn                  ();
+        void                    zoomOut                 ();
+        void                    zoomReset               ();
+        void                    print                   ();
+
+    protected slots:
+        void                    keyPressEvent           (QKeyEvent* event);
+        void                    enterEvent              (QEvent*    event);
+        void                    leaveEvent              (QEvent*    event);
 
     private:
         void                    adjustScrollBar         (QScrollBar* scrollBar, double factor);
 
         QImage                  _image;
         QScrollArea*            _scrollArea;
-        double                  _scaleFactor;
-
+        double                  _zoomFactor;
+        QPrinter                _printer;
 };
 

@@ -9,6 +9,8 @@ int main (int argc, char* argv[]) {
         return 0;
     }
 
+    qSetMessagePattern("[%{time hh:mm:ss}][%{function}:%{line}][%{category}] %{message}");
+
     //
     // Create the app.
     //
@@ -20,8 +22,6 @@ int main (int argc, char* argv[]) {
     QImageViewer leah;
 
     leah.loadFile(argv[1]);
-    leah.scaleImage(1.0);
-
     leah.show();
 
     return app.exec();
