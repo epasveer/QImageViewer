@@ -17,12 +17,12 @@ int main (int argc, char* argv[]) {
     QApplication app(argc, argv);
 
     //
-    // Start Leah
+    // Start Lena
     //
-    QImageViewer leah;
+    QImageViewer lena;
 
-    leah.loadFile(argv[1]);
-    leah.show();
+    lena.loadFile(argv[1]);
+    lena.show();
 
     return app.exec();
 }

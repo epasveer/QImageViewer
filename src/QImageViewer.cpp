@@ -19,7 +19,7 @@ QImageViewer::QImageViewer (QWidget* parent) : QLabel(parent) {
     setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     setScaledContents(true);
 
-    _scrollArea = new QScrollArea;
+    _scrollArea = new QScrollArea(parent);
     _scrollArea->setBackgroundRole(QPalette::Dark);
     _scrollArea->setWidget(this);
 
@@ -35,20 +35,20 @@ bool QImageViewer::loadFile (const QString& file) {
 
     reader.setAutoTransform(true);
 
-    QImage newImage = reader.read();
+    QImage image = reader.read();
 
-    if (newImage.isNull()) {
+    if (image.isNull()) {
         return false;
     }
 
-    setImage(newImage);
+    setImage(image);
 
     return true;
 }
 
-void QImageViewer::setImage (const QImage&  newImage) {
+void QImageViewer::setImage (const QImage&  image) {
 
-    _image = newImage;
+    _image = image;
 
     qDebug() << _image;
 

@@ -17,7 +17,7 @@ class QImageViewer : public QLabel {
        ~QImageViewer ();
 
         bool                    loadFile                (const QString& file);
-        void                    setImage                (const QImage& newImage);
+        void                    setImage                (const QImage& image);
         const QImage&           image                   () const;
 
         double                  zoomFactor              () const;
