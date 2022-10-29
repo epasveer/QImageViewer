@@ -2,13 +2,12 @@
 
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QWidget>
+#include <QtWidgets/QScrollArea>
 #include <QtGui/QImage>
 #include <QtGui/QKeyEvent>
-#include <QtGui/QWheelEvent>
 #include <QtPrintSupport/QPrinter>
-#include "ui_QImageViewer.h"
 
-class QImageViewer : public QWidget, protected Ui::QImageViewer {
+class QImageViewer : public QWidget {
 
     Q_OBJECT
 
@@ -19,6 +18,7 @@ class QImageViewer : public QWidget, protected Ui::QImageViewer {
         bool                    loadFile                (const QString& file);
         void                    setImage                (const QImage& image);
         const QImage&           image                   () const;
+        void                    setText                 (const QString& text);
 
         double                  zoomFactor              () const;
 
@@ -38,6 +38,7 @@ class QImageViewer : public QWidget, protected Ui::QImageViewer {
         void                    adjustScrollBar         (QScrollBar* scrollBar, double factor);
 
         QImage                  _image;
+        QScrollArea*            _scrollArea;
         QLabel*                 _imageLabel;
         double                  _zoomFactor;
         QPrinter                _printer;
