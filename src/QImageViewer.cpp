@@ -55,7 +55,7 @@ bool QImageViewer::loadFile (const QString& file) {
 
 void QImageViewer::setImage (const QImage& image) {
 
-    qDebug() << image;
+    //qDebug() << image;
 
     _image      = image;
     _zoomFactor = 1.0;

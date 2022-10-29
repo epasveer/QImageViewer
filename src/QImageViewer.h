@@ -35,8 +35,6 @@ class QImageViewer : public QWidget {
         void                    leaveEvent              (QEvent*    event);
 
     private:
-        void                    adjustScrollBar         (QScrollBar* scrollBar, double factor);
-
         QImage                  _image;
         QScrollArea*            _scrollArea;
         QLabel*                 _imageLabel;
