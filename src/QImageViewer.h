@@ -1,19 +1,19 @@
 #pragma once
 
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QWidget>
 #include <QtGui/QImage>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QWheelEvent>
 #include <QtPrintSupport/QPrinter>
+#include "ui_QImageViewer.h"
 
-class QImageViewer : public QLabel {
+class QImageViewer : public QWidget, protected Ui::QImageViewer {
 
     Q_OBJECT
 
     public:
-        QImageViewer (QWidget* parent = 0);
+        explicit QImageViewer (QWidget* parent = 0);
        ~QImageViewer ();
 
         bool                    loadFile                (const QString& file);
@@ -38,7 +38,7 @@ class QImageViewer : public QLabel {
         void                    adjustScrollBar         (QScrollBar* scrollBar, double factor);
 
         QImage                  _image;
-        QScrollArea*            _scrollArea;
+        QLabel*                 _imageLabel;
         double                  _zoomFactor;
         QPrinter                _printer;
 };

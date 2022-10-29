@@ -11,19 +11,25 @@
 // Except mine extends QLabel, not QMainWindow.
 //
 
-QImageViewer::QImageViewer (QWidget* parent) : QLabel(parent) {
+QImageViewer::QImageViewer (QWidget* parent) : QWidget(parent) {
 
     _zoomFactor = 1.0;
 
-    setBackgroundRole(QPalette::Base);
-    setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    setScaledContents(true);
+    // Construct the UI.
+    setupUi(this);
 
-    _scrollArea = new QScrollArea(parent);
-    _scrollArea->setBackgroundRole(QPalette::Dark);
-    _scrollArea->setWidget(this);
+    // Setup the widgets
+    _imageLabel = new QLabel;
 
-    setPixmap(QPixmap::fromImage(_image));
+    _imageLabel->setBackgroundRole(QPalette::Base);
+    _imageLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+  //_imageLabel->setScaledContents(true);
+
+    scrollArea->setBackgroundRole(QPalette::Dark);
+    scrollArea->setWidget(_imageLabel);
+    scrollArea->setVisible(true);
+
+    _imageLabel->setPixmap(QPixmap::fromImage(_image));
 }
 
 QImageViewer::~QImageViewer () {
@@ -46,19 +52,15 @@ bool QImageViewer::loadFile (const QString& file) {
     return true;
 }
 
-void QImageViewer::setImage (const QImage&  image) {
+void QImageViewer::setImage (const QImage& image) {
 
-    _image = image;
+    qDebug() << image;
 
-    qDebug() << _image;
-
-    setPixmap(QPixmap::fromImage(_image));
-
+    _image      = image;
     _zoomFactor = 1.0;
 
-    _scrollArea->setVisible(true);
-
-    adjustSize(); //
+    _imageLabel->setPixmap(QPixmap::fromImage(_image));
+    _imageLabel->adjustSize(); //
 }
 
 const QImage& QImageViewer::image () const {
@@ -73,14 +75,14 @@ double QImageViewer::zoomFactor () const {
 
 void QImageViewer::zoom (double factor) {
 
-    // qDebug() << "New scale factor " << factor;
+    qDebug() << "New scale factor " << factor;
 
     _zoomFactor = factor;
 
-    resize(_zoomFactor * pixmap(Qt::ReturnByValue).size());
+    _imageLabel->resize(_zoomFactor * _imageLabel->pixmap(Qt::ReturnByValue).size());
 
-    adjustScrollBar(_scrollArea->horizontalScrollBar(), factor);
-    adjustScrollBar(_scrollArea->verticalScrollBar(),   factor);
+    //adjustScrollBar(scrollArea->horizontalScrollBar(), factor);
+    //adjustScrollBar(scrollArea->verticalScrollBar(),   factor);
 }
 
 void QImageViewer::zoomIn () {
@@ -100,24 +102,24 @@ void QImageViewer::zoomReset () {
 
 void QImageViewer::print () {
 
-    Q_ASSERT(pixmap(Qt::ReturnByValue).isNull() == false);
+    Q_ASSERT(_imageLabel->pixmap(Qt::ReturnByValue).isNull() == false);
 
     QPrintDialog dialog(&_printer, this);
 
     if (dialog.exec()) {
         QPainter painter(&_printer);
         QRect rect = painter.viewport();
-        QSize size = pixmap(Qt::ReturnByValue).size();
+        QSize size = _imageLabel->pixmap(Qt::ReturnByValue).size();
         size.scale(rect.size(), Qt::KeepAspectRatio);
         painter.setViewport(rect.x(), rect.y(), size.width(), size.height());
-        painter.setWindow(pixmap(Qt::ReturnByValue).rect());
-        painter.drawPixmap(0, 0, pixmap(Qt::ReturnByValue));
+        painter.setWindow(_imageLabel->pixmap(Qt::ReturnByValue).rect());
+        painter.drawPixmap(0, 0, _imageLabel->pixmap(Qt::ReturnByValue));
     }
 }
 
 void QImageViewer::keyPressEvent (QKeyEvent* event) {
 
-    // qDebug() << "Key =" << event->key();
+    qDebug() << "Key =" << event->key();
 
     switch (event->key()) {
         case Qt::Key_Escape:
@@ -135,7 +137,7 @@ void QImageViewer::keyPressEvent (QKeyEvent* event) {
             }
             break;
         default:
-            QLabel::keyPressEvent(event);
+            QWidget::keyPressEvent(event);
             break;
     }
 }
